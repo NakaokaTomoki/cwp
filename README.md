@@ -27,4 +27,4 @@ $ cwp [オプション]
 
 
 # ライセンス
-- MIT License
+MIT License
