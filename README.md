@@ -38,4 +38,4 @@ MIT License
 
 
 ## Icon
-![Icon](docs/static/images/wether_cat.png)
+![Icon](docs/static/images/weather_cat.png)
