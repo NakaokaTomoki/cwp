@@ -4,7 +4,7 @@
 - 指定した場所の気象情報をCLI上に表示するコマンド
 
 
-# 概要
+# Description
 - OpenWeatherMap(https://openweathermap.org/) が提供しているAPI を使用して指定した場所の天気や気温を取得する
 - API から取得した情報 CLI上に表示する
 - 出力項目は，天気・気温
@@ -12,7 +12,7 @@
     - (ex) 天気： 晴れ☀️ 気温： 22度
 
 
-# 利用方法
+# Usage
 ```
 $ cwp [オプション]
 
@@ -25,6 +25,5 @@ $ cwp [オプション]
     -help: cwpコマンドのバージョン情報および利用可能なオプションを表示
 ```
 
-
-# ライセンス
+# License
 MIT License
