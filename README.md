@@ -27,3 +27,15 @@ $ cwp [オプション]
 
 # License
 MIT License
+
+
+# About
+## License
+
+
+## Developers
+- Nakaoka Tomoki
+
+
+## Icon
+![Icon](docs/static/images/wether_cat.png)
