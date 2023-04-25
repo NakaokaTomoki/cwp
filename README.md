@@ -1,5 +1,6 @@
 # cwp (Current Weather Print)
 [![Coverage Status](https://coveralls.io/repos/github/NakaokaTomoki/cwp/badge.svg?branch=main)](https://coveralls.io/github/NakaokaTomoki/cwp?branch=main)
+[![codebeat badge](https://codebeat.co/badges/f97b15e5-c079-49f6-b21b-d1b49ff863a9)](https://codebeat.co/projects/github-com-nakaokatomoki-cwp-main)
 - cwp version 1.0.0
 <!-- tagline -->
 - 指定した場所の気象情報をCLI上に表示するコマンド

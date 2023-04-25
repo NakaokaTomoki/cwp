@@ -3,17 +3,16 @@ VERSION := 0.1.0
 NAME := cwp
 DIST := $(NAME)-$(VERSION)
 
-all: cwp test
+$(warning PACKAGE_LIST = $(PACKAGE_LIST))
 
-build: test
+all: build test
+
+build:
 	go build -o cwp $(PACKAGE_LIST)
 
 test:
+	gofmt -l -s .
 	go test -covermode=count -coverprofile=coverage.out $(PACKAGE_LIST)
-
-cwp:
-	gofmt $(PACKAGE_LIST)
-	go build -o cwp $(PACKAGE_LIST)
 
 clean:
 	rm -f cwp
