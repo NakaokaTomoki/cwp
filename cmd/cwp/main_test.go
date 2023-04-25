@@ -9,7 +9,7 @@ func Example_Main() {
 }
 
 func Test_Main(t *testing.T) {
-	if stasus := goMain([]string{}); stasus != 0 {
-		t.Error("Expected 0, got ", stasus)
+	if status := goMain([]string{}); status != 0 {
+		t.Error("Expected 0, got ", status)
 	}
 }
