@@ -1,6 +1,12 @@
 # cwp (Current Weather Print)
+[![build](https://github.com/NakaokaTomoki/cwp/actions/workflows/build.yaml/badge.svg)](https://github.com/NakaokaTomoki/cwp/actions/workflows/build.yaml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Version](https://img.shields.io/badge/Version-1.0.0-informational-blueviolet)
+
 [![Coverage Status](https://coveralls.io/repos/github/NakaokaTomoki/cwp/badge.svg?branch=main)](https://coveralls.io/github/NakaokaTomoki/cwp?branch=main)
 [![codebeat badge](https://codebeat.co/badges/f97b15e5-c079-49f6-b21b-d1b49ff863a9)](https://codebeat.co/projects/github-com-nakaokatomoki-cwp-main)
+[![Go Report Card](https://goreportcard.com/badge/github.com/NakaokaTomoki/cwp)](https://goreportcard.com/report/github.com/NakaokaTomoki/cwp)
+
 - cwp version 1.0.0
 <!-- tagline -->
 - 指定した場所の気象情報をCLI上に表示するコマンド
