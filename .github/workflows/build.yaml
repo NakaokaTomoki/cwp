@@ -26,7 +26,7 @@ jobs:
         run: make
 
       - name: Convert coverage to lcov format
-        uses: jandelgado/gcov2-action@1.0.0
+        uses: jandelgado/gcov2lcov-action@v1.0.0
         with:
           infile: coverage.out
           outfile: coverage.lcov
