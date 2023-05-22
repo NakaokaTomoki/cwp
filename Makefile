@@ -1,22 +1,29 @@
 PACKAGE_LIST := $(shell go list ./...)
-VERSION := 0.1.0
+VERSION := 0.2.0
 NAME := cwp
 DIST := $(NAME)-$(VERSION)
 
 $(warning PACKAGE_LIST = $(PACKAGE_LIST))
 
-all: cwp test
+cwp: build
+	coverage.out cmd/cwp/main.go *.go
 
-cwp:
-	test
-	build
+coverage.out: cmd/cwp/main_test.go
+	go test -covermode=count \
+		-coverprofile=coverage.out $(PACKAGE_LIST)
+
+# cwp: build test
+#
+# run:
+# 	go run cmd/$(NAME)/main.go -token="aaa"
+# 	test
 
 build:
-	go build -o cwp $(PACKAGE_LIST)
+	go build -o cwp cmd/cwp/main.go
 
-test:
-	gofmt -l -s .
-	go test -covermode=count -coverprofile=coverage.out $(PACKAGE_LIST)
+# test:
+# 	gofmt -l -s .
+# 	go test -covermode=count -coverprofile=coverage.out $(PACKAGE_LIST)
 
 docker: cwp
 	docker buildx build -t ghcr.io/NakaokaTomoki/cwp:$(VERSION) \
@@ -43,4 +50,4 @@ distclean: clean
 	rm -rf dist
 
 clean:
-	rm -f cwp
+	rm -f cwp coverage.out
