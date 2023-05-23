@@ -22,8 +22,13 @@ func Example_Help() {
     //     -v, --version            print the version and exit.
 }
 
+// func Test_Main(t *testing.T) {
+//     if status := goMain([]string{}); status != 0 {
+//         t.Error("Expected 0, got ", status)
+//     }
+
 func Test_Main(t *testing.T) {
-    if status := goMain([]string{}); status != 0 {
+    if status := goMain([]string{"./cwp", "-v"}); status != 0 {
         t.Error("Expected 0, got ", status)
     }
 }

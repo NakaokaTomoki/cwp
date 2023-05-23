@@ -5,8 +5,8 @@ DIST := $(NAME)-$(VERSION)
 
 $(warning PACKAGE_LIST = $(PACKAGE_LIST))
 
-cwp: build
-	coverage.out cmd/cwp/main.go *.go
+cwp: coverage.out cmd/cwp/main.go *.go
+	go build -o cwp cmd/cwp/main.go
 
 coverage.out: cmd/cwp/main_test.go
 	go test -covermode=count \
@@ -18,8 +18,8 @@ coverage.out: cmd/cwp/main_test.go
 # 	go run cmd/$(NAME)/main.go -token="aaa"
 # 	test
 
-build:
-	go build -o cwp cmd/cwp/main.go
+# build:
+# 	go build -o cwp cmd/cwp/main.go
 
 # test:
 # 	gofmt -l -s .

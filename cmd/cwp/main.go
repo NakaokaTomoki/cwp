@@ -6,23 +6,18 @@ import (
     "path/filepath"
 
     flag "github.com/spf13/pflag"
-    "github.com/NakaokaTomoki/cwp"
+    // "github.com/NakaokaTomoki/cwp"
 )
 
 const VERSION = "0.1.16"
 
 
 func versionString(args []string) string {
-    prog := "urleap"
+    prog := "cwp"
     if len(args) > 0 {
         prog = filepath.Base(args[0])
     }
     return fmt.Sprintf("%s version %s", prog, VERSION)
-}
-
-type options struct {
-    token string
-    help bool
 }
 
 type CwpError struct {
@@ -39,22 +34,19 @@ helpMessage prints the help message.
 This function is used in the small tests, so it may be called with a zero-length slice.
 */
 func helpMessage(args []string) string {
-    prog := "urleap"
+    prog := "cwp"
     if len(args) > 0 {
-    	prog = filepath.Base(args[0])
+        prog = filepath.Base(args[0])
     }
     return fmt.Sprintf(`%s [OPTIONS] [URLs...]
 OPTIONS
     -t, --token <TOKEN>      specify the token for the service. This option is mandatory.
     -q, --qrcode <FILE>      include QR-code of the URL in the output.
     -c, --config <CONFIG>    specify the configuration file.
-    -g, --group <GROUP>      specify the group name for the service. Default is "urleap"
     -d, --delete             delete the specified shorten URL.
     -h, --help               print this mesasge and exit.
     -v, --version            print the version and exit.
-ARGUMENT
-    URL     specify the url for shortening. this arguments accept multiple values.
-            if no arguments were specified, urleap prints the list of available shorten urls.`, prog)
+    `, prog)
 }
 
 type flags struct {
@@ -83,26 +75,26 @@ func newOptions() *options {
     return &options{runOpt: &runOpts{}, flagSet: &flags{}}
 }
 
-func (opts *options) mode(args []string) urleap.Mode {
-    switch {
-    case opts.flagSet.listGroupFlag:
-        return urleap.ListGroup
-    case len(args) == 0:
-        return urleap.List
-    case opts.flagSet.deleteFlag:
-        return urleap.Delete
-    case opts.runOpt.qrcode != "":
-        return urleap.QRCode
-    default:
-        return urleap.Shorten
-    }
-}
+// func (opts *options) mode(args []string) cwp.Mode {
+//     switch {
+//     case opts.flagSet.listGroupFlag:
+//         return cwp.ListGroup
+//     case len(args) == 0:
+//         return cwp.List
+//     case opts.flagSet.deleteFlag:
+//         return cwp.Delete
+//     case opts.runOpt.qrcode != "":
+//         return cwp.QRCode
+//     default:
+//         return cwp.Shorten
+//     }
+// }
 
 func buildOptions(args []string) (*options, *flag.FlagSet) {
     opts := &options{}
     flags := flag.NewFlagSet(args[0], flag.ContinueOnError)
-    flags.Usage = func() { fmt.Println(helpMessage(args[0])) }
-    flags.StringVarP(&opts.token, "token", "t", "", "specify the")
+    flags.Usage = func() { fmt.Println(helpMessage(args)) }
+    flags.StringVarP(&opts.runOpt.token, "token", "t", "", "specify the")
 
     return opts, flags
 }
@@ -112,15 +104,34 @@ func perform(opts *options, args []string) *CwpError {
     return nil
 }
 
+// func parseOptions(args []string) (*options, []string, *CwpError) {
+//     opts, flags := buildOptions(args)
+//
+//     flags.Parse(args[1:])
+//
+//     if opts.help {
+//         fmt.Println(helpMessage(args[0]))
+//     }
+//     if opts.token == "" {
+//         return nil, nil, &CwpError{statusCode: 3, message: "no token was given"}
+//     }
+//     return opts, flags.Args(), nil
+// }
+/*
+parseOptions parses options from the given command line arguments.
+*/
 func parseOptions(args []string) (*options, []string, *CwpError) {
     opts, flags := buildOptions(args)
-
     flags.Parse(args[1:])
-
-    if opts.help {
-        fmt.Println(helpMessage(args[0]))
+    if opts.flagSet.helpFlag {
+        fmt.Println(helpMessage(args))
+        return nil, nil, &CwpError{statusCode: 0, message: ""}
     }
-    if opts.token == "" {
+    if opts.flagSet.versionFlag {
+        fmt.Println(versionString(args))
+        return nil, nil, &CwpError{statusCode: 0, message: ""}
+    }
+    if opts.runOpt.token == "" {
         return nil, nil, &CwpError{statusCode: 3, message: "no token was given"}
     }
     return opts, flags.Args(), nil
