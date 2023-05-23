@@ -24,7 +24,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          tag=$(gh release view --json tagName --jq .tagName)
+          tag=$(gh releases view --json tagName --jq .tagName)
           echo "tag=${tag##v}" >> $GITHUB_OUTPUT
 
       - name: Docker Buildx
