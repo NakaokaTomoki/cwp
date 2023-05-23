@@ -8,8 +8,7 @@ cwp: coverage.out cmd/cwp/main.go *.go
 	go build -o $(NAME) cmd/cwp/main.go
 
 coverage.out: cmd/cwp/main_test.go
-	go test -covermode=count \
-		-coverprofile=coverage.out $(PACKAGE_LIST)
+	go test -covermode=count -coverprofile=coverage.out $(PACKAGE_LIST)
 
 # cwp: coverage.out
 # 	go build -o cwp $(PACKAGE_LIST)
