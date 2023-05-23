@@ -5,7 +5,7 @@ DIST := $(NAME)-$(VERSION)
 
 
 cwp: coverage.out cmd/cwp/main.go *.go
-	go build -o cwp cmd/cwp/main.go
+	go build -o $(NAME) cmd/cwp/main.go
 
 coverage.out: cmd/cwp/main_test.go
 	go test -covermode=count \
@@ -26,8 +26,9 @@ coverage.out: cmd/cwp/main_test.go
 # 	go test -covermode=count -coverprofile=coverage.out $(PACKAGE_LIST)
 
 docker: cwp
-	docker buildx build -t ghcr.io/NakaokaTomoki/cwp:$(VERSION) \
-		-t ghcr.io/NakaokaTomoki/cwp:latest --platform=linux/arm64/v8,linux/amd64 --push .
+#	docker build -t ghcr.io/$(REPO_NAME):$(VERSION) -t ghcr.io/$(REPO_NAME):latest .
+	docker buildx build -t ghcr.io/$(REPO_NAME):$(VERSION) \
+		-t ghcr.io/$(REPO_NAME):latest --platform=linux/arm64/v8,linux/amd64 --push .
 
 # refer from https://pod.hatenablog.com/entry/2017/06/13/150342
 define _createDist
@@ -50,4 +51,4 @@ distclean: clean
 	rm -rf dist
 
 clean:
-	rm -f cwp coverage.out
+	rm -f $(NAME) coverage.out
