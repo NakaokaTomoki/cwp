@@ -8,8 +8,9 @@ DIST := $(NAME)-$(VERSION)
 # cwp: coverage.out cmd/cwp/main.go *.go
 # 	go build -o cwp cmd/cwp/main.go
 #
+#
 cwp: coverage.out
-	go build -o cwp cmd/cwp/main.go
+	go build -o cwp $(PACKAGE_LIST)
 
 coverage.out:
 	go test -covermode=count \
