@@ -3,12 +3,15 @@ VERSION := 0.2.0
 NAME := cwp
 DIST := $(NAME)-$(VERSION)
 
-$(warning PACKAGE_LIST = $(PACKAGE_LIST))
+# $(warning PACKAGE_LIST = $(PACKAGE_LIST))
 
-cwp: coverage.out cmd/cwp/main.go *.go
+# cwp: coverage.out cmd/cwp/main.go *.go
+# 	go build -o cwp cmd/cwp/main.go
+#
+cwp: coverage.out
 	go build -o cwp cmd/cwp/main.go
 
-coverage.out: cmd/cwp/main_test.go
+coverage.out:
 	go test -covermode=count \
 		-coverprofile=coverage.out $(PACKAGE_LIST)
 
