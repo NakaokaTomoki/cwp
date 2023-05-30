@@ -1,7 +1,7 @@
 # cwp (Current Weather Print)
 [![build](https://github.com/NakaokaTomoki/cwp/actions/workflows/build.yaml/badge.svg)](https://github.com/NakaokaTomoki/cwp/actions/workflows/build.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Version](https://img.shields.io/badge/Version-1.0.0-blueviolet)
+![Version](https://img.shields.io/badge/Version-0.2.10-blueviolet)
 
 [![Coverage Status](https://coveralls.io/repos/github/NakaokaTomoki/cwp/badge.svg?branch=main)](https://coveralls.io/github/NakaokaTomoki/cwp?branch=main)
 [![codebeat badge](https://codebeat.co/badges/f97b15e5-c079-49f6-b21b-d1b49ff863a9)](https://codebeat.co/projects/github-com-nakaokatomoki-cwp-main)
