@@ -13,7 +13,7 @@ jobs:
       - name: Git Tag Name
         id: vars
         run: |
-          echo "branch=${GITHUB_REF#refs/heads/}" >> $GUTHUB_OUTPUT
+          echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
           echo "tag=${GITHUB_REF##**/v}" >> $GITHUB_OUTPUT
 
       - name: Checkout
@@ -29,12 +29,12 @@ jobs:
           git config --global user.email "action@github.com"
           auth_header="$(git config --local --get http.https://github.com/.extraheader)"
           git submodule sync --recursive
-          git -c "http.extraheader=$auth_header" -c protocol.version=2 shubmodule update --init --force --recursive --depth=1
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
 
       - name: Update version
         id: update_version
         run:
-          (bash ./.bin/update_version.sh ${{ steps.vars.outputs.tag }} && git commit -a -m "update version to ${{ steps.vars.outputs.tag }}, ready to publish v${{ steps.vars.outputs.tag }} || true")
+          (bash ./.bin/update_version.sh ${{ steps.vars.outputs.tag }} && git commit -a -m "update version to ${{ steps.vars.outputs.tag }}, ready to publish v${{ steps.vars.outputs.tag }}") || true
 
       - name: Push branch
         uses: ad-m/github-push-action@master

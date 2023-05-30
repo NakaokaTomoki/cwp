@@ -56,5 +56,5 @@ jobs:
           file: Dockerfile
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/Nakaokatomoki/cwp:${{ steps.vars.outputs.tag }}
-            ghcr.io/Nakaokatomoki/cwp:latest
+            ghcr.io/tamada/urleap:${{ steps.vars.outputs.tag }}
+            ghcr.io/tamada/urleap:latest
