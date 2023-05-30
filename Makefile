@@ -3,24 +3,19 @@ VERSION := 0.2.0
 NAME := cwp
 DIST := $(NAME)-$(VERSION)
 
-# $(warning PACKAGE_LIST = $(PACKAGE_LIST))
 
-# cwp: coverage.out cmd/cwp/main.go *.go
-# 	go build -o cwp cmd/cwp/main.go
-#
-#
-cwp: coverage.out
-	go build -o cwp $(PACKAGE_LIST)
+cwp: coverage.out cmd/cwp/main.go *.go
+	go build -o $(NAME) cmd/cwp/main.go
 
-coverage.out:
-	go test -covermode=count \
-		-coverprofile=coverage.out $(PACKAGE_LIST)
+coverage.out: cmd/cwp/main_test.go
+	go test -covermode=count -coverprofile=coverage.out $(PACKAGE_LIST)
 
-# cwp: build test
+# cwp: coverage.out
+# 	go build -o cwp $(PACKAGE_LIST)
 #
-# run:
-# 	go run cmd/$(NAME)/main.go -token="aaa"
-# 	test
+# coverage.out:
+# 	go test -covermode=count \
+# 		-coverprofile=coverage.out $(PACKAGE_LIST)
 
 # build:
 # 	go build -o cwp cmd/cwp/main.go
@@ -30,8 +25,9 @@ coverage.out:
 # 	go test -covermode=count -coverprofile=coverage.out $(PACKAGE_LIST)
 
 docker: cwp
-	docker buildx build -t ghcr.io/NakaokaTomoki/cwp:$(VERSION) \
-		-t ghcr.io/NakaokaTomoki/cwp:latest --platform=linux/arm64/v8,linux/amd64 --push .
+#	docker build -t ghcr.io/$(REPO_NAME):$(VERSION) -t ghcr.io/$(REPO_NAME):latest .
+	docker buildx build -t ghcr.io/$(REPO_NAME):$(VERSION) \
+		-t ghcr.io/$(REPO_NAME):latest --platform=linux/arm64/v8,linux/amd64 --push .
 
 # refer from https://pod.hatenablog.com/entry/2017/06/13/150342
 define _createDist
@@ -54,4 +50,4 @@ distclean: clean
 	rm -rf dist
 
 clean:
-	rm -f cwp coverage.out
+	rm -f $(NAME) coverage.out
