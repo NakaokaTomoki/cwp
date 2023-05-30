@@ -7,7 +7,7 @@
 [![codebeat badge](https://codebeat.co/badges/f97b15e5-c079-49f6-b21b-d1b49ff863a9)](https://codebeat.co/projects/github-com-nakaokatomoki-cwp-main)
 [![Go Report Card](https://goreportcard.com/badge/github.com/NakaokaTomoki/cwp)](https://goreportcard.com/report/github.com/NakaokaTomoki/cwp)
 
-- cwp version 0.2.10
+- cwp version 0.2.8
 
 <!-- tagline -->
 - 指定した場所の気象情報をCLI上に表示するコマンド
