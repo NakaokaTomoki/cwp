@@ -1,4 +1,4 @@
-# cwp (Current Weather Print)
+# cwp (Current Weather Print) :HELP:
 [![build](https://github.com/NakaokaTomoki/cwp/actions/workflows/build.yaml/badge.svg)](https://github.com/NakaokaTomoki/cwp/actions/workflows/build.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Version](https://img.shields.io/badge/Version-0.2.10-blueviolet)
