@@ -8,6 +8,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/NakaokaTomoki/cwp)](https://goreportcard.com/report/github.com/NakaokaTomoki/cwp)
 
 - cwp version 0.2.9
+
 <!-- tagline -->
 - 指定した場所の気象情報をCLI上に表示するコマンド
 
