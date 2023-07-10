@@ -6,11 +6,10 @@ import (
 	"path/filepath"
 
 	flag "github.com/spf13/pflag"
-	// "github.com/tamada/cwp"
 	"github.com/NakaokaTomoki/cwp"
 )
 
-const VERSION = "0.2.12"
+const VERSION = "0.2.16"
 
 func versionString(args []string) string {
 	prog := "cwp"
@@ -29,18 +28,9 @@ func helpMessage(args []string) string {
 	if len(args) > 0 {
 		prog = filepath.Base(args[0])
 	}
-	return fmt.Sprintf(`%s [OPTIONS] [URLs...]
+	return fmt.Sprintf(`%s [OPTIONS] [Places...]
 OPTIONS
-    -t, --token <TOKEN>      specify the token for the service. This option is mandatory.
-    -q, --qrcode <FILE>      include QR-code of the URL in the output.
-    -c, --config <CONFIG>    specify the configuration file.
-    -g, --group <GROUP>      specify the group name for the service. Default is "cwp"
-    -d, --delete             delete the specified shorten URL.
-    -h, --help               print this mesasge and exit.
-    -v, --version            print the version and exit.
-ARGUMENT
-    URL     specify the url for shortening. this arguments accept multiple values.
-            if no arguments were specified, cwp prints the list of available shorten urls.`, prog)
+    -t, --token <TOKEN>      specify the token for the service. This option is mandatory.`, prog)
 }
 
 type cwpError struct {
@@ -63,7 +53,7 @@ type runOpts struct {
 	token  string
 	qrcode string
 	config string
-	group  string
+	// group  string
 }
 
 /*
@@ -84,12 +74,12 @@ func (opts *options) mode(args []string) cwp.Mode {
 		return cwp.ListGroup
 	case len(args) == 0:
 		return cwp.List
-	case opts.flagSet.deleteFlag:
-		return cwp.Delete
-	case opts.runOpt.qrcode != "":
-		return cwp.QRCode
+	// case opts.flagSet.deleteFlag:
+	// 	return cwp.Delete
+	// case opts.runOpt.qrcode != "":
+	// 	return cwp.QRCode
 	default:
-		return cwp.Shorten
+		return cwp.GetWeather
 	}
 }
 
@@ -101,11 +91,11 @@ func buildOptions(args []string) (*options, *flag.FlagSet) {
 	flags := flag.NewFlagSet(args[0], flag.ContinueOnError)
 	flags.Usage = func() { fmt.Println(helpMessage(args)) }
 	flags.StringVarP(&opts.runOpt.token, "token", "t", "", "specify the token for the service. This option is mandatory.")
-	flags.StringVarP(&opts.runOpt.qrcode, "qrcode", "q", "", "include QR-code of the URL in the output.")
-	flags.StringVarP(&opts.runOpt.config, "config", "c", "", "specify the configuration file.")
-	flags.StringVarP(&opts.runOpt.group, "group", "g", "", "specify the group name for the service. Default is \"cwp\"")
-	flags.BoolVarP(&opts.flagSet.listGroupFlag, "list-group", "L", false, "list the groups. This is hidden option.")
-	flags.BoolVarP(&opts.flagSet.deleteFlag, "delete", "d", false, "delete the specified shorten URL.")
+	// flags.StringVarP(&opts.runOpt.qrcode, "qrcode", "q", "", "include QR-code of the URL in the output.")
+	// flags.StringVarP(&opts.runOpt.config, "config", "c", "", "specify the configuration file.")
+	// flags.StringVarP(&opts.runOpt.group, "group", "g", "", "specify the group name for the service. Default is \"cwp\"")
+	// flags.BoolVarP(&opts.flagSet.listGroupFlag, "list-group", "L", false, "list the groups. This is hidden option.")
+	// flags.BoolVarP(&opts.flagSet.deleteFlag, "delete", "d", false, "delete the specified shorten URL.")
 	flags.BoolVarP(&opts.flagSet.helpFlag, "help", "h", false, "print this mesasge and exit.")
 	flags.BoolVarP(&opts.flagSet.versionFlag, "version", "v", false, "print the version and exit.")
 	return opts, flags
@@ -131,8 +121,8 @@ func parseOptions(args []string) (*options, []string, *cwpError) {
 	return opts, flags.Args(), nil
 }
 
-func shortenEach(bitly *cwp.Bitly, config *cwp.Config, url string) error {
-	result, err := bitly.Shorten(config, url)
+func getWeatherEach(openweathermap *cwp.OpenWeatherMap, place string, config *cwp.Config) error {
+	result, err := openweathermap.GetWeather(place, config)
 	if err != nil {
 		return err
 	}
@@ -140,35 +130,35 @@ func shortenEach(bitly *cwp.Bitly, config *cwp.Config, url string) error {
 	return nil
 }
 
-func deleteEach(bitly *cwp.Bitly, config *cwp.Config, url string) error {
-	return bitly.Delete(config, url)
-}
+// func deleteEach(bitly *cwp.Bitly, config *cwp.Config, url string) error {
+// 	return bitly.Delete(config, url)
+// }
 
-func listUrls(bitly *cwp.Bitly, config *cwp.Config) error {
-	urls, err := bitly.List(config)
+func listPlaces(openweathermap *cwp.OpenWeatherMap, config *cwp.Config) error {
+	places, err := openweathermap.List(config)
 	if err != nil {
 		return err
 	}
-	for _, url := range urls {
-		fmt.Println(url)
+	for _, place := range places {
+		fmt.Println(place)
 	}
 	return nil
 }
 
-func listGroups(bitly *cwp.Bitly, config *cwp.Config) error {
-	groups, err := bitly.Groups(config)
-	if err != nil {
-		return err
-	}
-	for i, group := range groups {
-		fmt.Printf("GUID[%d] %s\n", i, group.Guid)
-	}
-	return nil
-}
+// func listGroups(openweathermap *cwp.OpenWeatherMap, config *cwp.Config) error {
+// 	groups, err := openweathermap.Groups(config)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	for i, group := range groups {
+// 		fmt.Printf("GUID[%d] %s\n", i, group.Guid)
+// 	}
+// 	return nil
+// }
 
-func performImpl(args []string, executor func(url string) error) *cwpError {
-	for _, url := range args {
-		err := executor(url)
+func performImpl(args []string, executor func(place string) error) *cwpError {
+	for _, place := range args {
+		err := executor(place)
 		if err != nil {
 			return makeError(err, 3)
 		}
@@ -177,23 +167,29 @@ func performImpl(args []string, executor func(url string) error) *cwpError {
 }
 
 func perform(opts *options, args []string) *cwpError {
-	bitly := cwp.NewBitly(opts.runOpt.group)
+        // fmt.Println(opts)
+        // fmt.Println(args)
+        // os.Exit(0)
+
+	// openweathermap := cwp.NewOpenWeatherMap(opts.runOpt.group)
+	openweathermap := cwp.NewOpenWeatherMap()
 	config := cwp.NewConfig(opts.runOpt.config, opts.mode(args))
 	config.Token = opts.runOpt.token
+
 	switch config.RunMode {
 	case cwp.List:
-		err := listUrls(bitly, config)
+		err := listPlaces(openweathermap, config)
 		return makeError(err, 1)
-	case cwp.ListGroup:
-		err := listGroups(bitly, config)
-		return makeError(err, 2)
-	case cwp.Delete:
-		return performImpl(args, func(url string) error {
-			return deleteEach(bitly, config, url)
-		})
-	case cwp.Shorten:
-		return performImpl(args, func(url string) error {
-			return shortenEach(bitly, config, url)
+	// case cwp.ListGroup:
+	// 	err := listGroups(openweathermap, config)
+	// 	return makeError(err, 2)
+	// case cwp.Delete:
+	// 	return performImpl(args, func(url string) error {
+	// 		return deleteEach(bitly, config, url)
+	// 	})
+	case cwp.GetWeather:
+		return performImpl(args, func(place string) error {
+			return getWeatherEach(openweathermap, place, config)
 		})
 	}
 	return nil
