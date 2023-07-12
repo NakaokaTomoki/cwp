@@ -1,5 +1,5 @@
 # cwp (Current Weather Print) :worried:
-[![build](https://github.com/NakaokaTomoki/cwp/actions/workflows/build.yaml/badge.svg)](https://github.com/NakaokaTomoki/cwp/actions/workflows/build.yml)
+[![build](https://github.com/NakaokaTomoki/cwp/actions/workflows/build.yml/badge.svg)](https://github.com/NakaokaTomoki/cwp/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Version](https://img.shields.io/badge/Version-0.2.10-blueviolet)
 
@@ -14,11 +14,15 @@
 
 
 # Description
+
 - OpenWeatherMap(https://openweathermap.org/) が提供しているAPI を使用して指定した場所の天気や気温を取得する
+
 - API から取得した情報 CLI上に表示する
+
 - 出力項目は，場所・日時・天気・気温
     - 出力形式は，プレーンテキスト
-    - (ex) 場所： 東京, 日時： 2023-07-13 02:25:31 +0900 JST, 天気： 晴れ, 気温： 24.93度
+    - (ex)
+     - 場所： 東京, 日時： 2023-07-13 02:25:31 +0900 JST, 天気： 晴れ, 気温： 24.93度
 
 
 # Usage
@@ -30,7 +34,7 @@ $ cwp [オプション]
     -v, --version          cwpのバージョン情報を表示
     -h, --help             cwpコマンドのバージョン情報および利用可能なオプションを表示
 引数:
-    PLACE:                天気予報を行う場所を指定(デフォルトはtokyo(東京))
+    PLACE:                 天気予報を行う場所を指定(デフォルトはtokyo(東京))
 ```
 
 # Installation
@@ -43,7 +47,7 @@ brew install NakaokaTomoki/brew/cwp
 ## :whale: Docker
 ```sh
 docker run -it --rm NakaokaTomoki/cwp:latest -t <token> <place...>
-
+```
 
 # License
 MIT License
