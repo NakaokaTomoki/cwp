@@ -9,7 +9,7 @@ import (
 	"github.com/NakaokaTomoki/cwp"
 )
 
-const VERSION = "0.2.16"
+const VERSION = "0.2.17"
 
 func versionString(args []string) string {
 	prog := "cwp"
@@ -43,16 +43,16 @@ func (e cwpError) Error() string {
 }
 
 type flags struct {
-	deleteFlag    bool
-	listGroupFlag bool
+	// deleteFlag    bool
+	// listGroupFlag bool
 	helpFlag      bool
 	versionFlag   bool
 }
 
 type runOpts struct {
 	token  string
-	qrcode string
 	config string
+	// qrcode string
 	// group  string
 }
 
@@ -70,10 +70,10 @@ func newOptions() *options {
 
 func (opts *options) mode(args []string) cwp.Mode {
 	switch {
-	case opts.flagSet.listGroupFlag:
-		return cwp.ListGroup
-	case len(args) == 0:
-		return cwp.List
+	// case opts.flagSet.listGroupFlag:
+	// 	return cwp.ListGroup
+	// case len(args) == 0:
+	// 	return cwp.List
 	// case opts.flagSet.deleteFlag:
 	// 	return cwp.Delete
 	// case opts.runOpt.qrcode != "":
@@ -134,16 +134,17 @@ func getWeatherEach(openweathermap *cwp.OpenWeatherMap, place string, config *cw
 // 	return bitly.Delete(config, url)
 // }
 
-func listPlaces(openweathermap *cwp.OpenWeatherMap, config *cwp.Config) error {
-	places, err := openweathermap.List(config)
-	if err != nil {
-		return err
-	}
-	for _, place := range places {
-		fmt.Println(place)
-	}
-	return nil
-}
+// func listPlaces(openweathermap *cwp.OpenWeatherMap, config *cwp.Config) error {
+// func Places(openweathermap *cwp.OpenWeatherMap, config *cwp.Config) error {
+// 	places, err := openweathermap.List(config)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	for _, place := range places {
+// 		fmt.Println(place)
+// 	}
+// 	return nil
+// }
 
 // func listGroups(openweathermap *cwp.OpenWeatherMap, config *cwp.Config) error {
 // 	groups, err := openweathermap.Groups(config)
@@ -177,9 +178,9 @@ func perform(opts *options, args []string) *cwpError {
 	config.Token = opts.runOpt.token
 
 	switch config.RunMode {
-	case cwp.List:
-		err := listPlaces(openweathermap, config)
-		return makeError(err, 1)
+	// case cwp.List:
+	// 	err := listPlaces(openweathermap, config)
+	// 	return makeError(err, 1)
 	// case cwp.ListGroup:
 	// 	err := listGroups(openweathermap, config)
 	// 	return makeError(err, 2)

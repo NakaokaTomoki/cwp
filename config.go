@@ -9,8 +9,8 @@ type Mode int
 
 const (
 	GetWeather Mode = iota + 1
-	List
-	ListGroup
+	// List
+	// ListGroup
 	// Delete
 	// QRCode
 )
