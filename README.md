@@ -16,9 +16,9 @@
 # Description
 - OpenWeatherMap(https://openweathermap.org/) が提供しているAPI を使用して指定した場所の天気や気温を取得する
 - API から取得した情報 CLI上に表示する
-- 出力項目は，天気・気温
-    - 出力形式は，デフォルトはプレーンテキスト
-    - (ex) 天気： 晴れ☀️ 気温： 22度
+- 出力項目は，場所・日時・天気・気温
+    - 出力形式は，プレーンテキスト
+    - (ex) 場所： 東京, 日時： 2023-07-13 02:25:31 +0900 JST, 天気： 晴れ, 気温： 24.93度
 
 
 # Usage
@@ -26,13 +26,24 @@
 $ cwp [オプション]
 
 オプション:
-    -place:  天気予報を行う場所を指定(デフォルトは日本)
-    -units: 測定単位
-    -lang: 出力言語(デフォルトは日本語)
-    -format: 出力形式を指定(デフォルトはプレーンテキスト)
-    -version: cwpのバージョン情報を表示
-    -help: cwpコマンドのバージョン情報および利用可能なオプションを表示
+    -t, --token <TOKEN>    OpenWeatherMap API の使用に必要となるトークンを指定
+    -v, --version          cwpのバージョン情報を表示
+    -h, --help             cwpコマンドのバージョン情報および利用可能なオプションを表示
+引数:
+    PLACE:                天気予報を行う場所を指定(デフォルトはtokyo(東京))
 ```
+
+# Installation
+
+## :beer: Homebrew
+```sh
+brew install NakaokaTomoki/brew/cwp
+```
+
+## :whale: Docker
+```sh
+docker run -it --rm NakaokaTomoki/cwp:latest -t <token> <place...>
+
 
 # License
 MIT License

@@ -2,36 +2,26 @@ package cwp
 
 type Config struct {
 	Token   string
-	RunMode Mode
+	// RunMode Mode
 }
 
-type Mode int
+// type Mode int
 
-const (
-	GetWeather Mode = iota + 1
-	// List
-	// ListGroup
-	// Delete
-	// QRCode
-)
+// const (
+// 	GetWeather Mode = iota + 1
+// 	// List
+// 	// ListGroup
+// 	// Delete
+// 	// QRCode
+// )
 
-func NewConfig(token string, mode Mode) *Config {
-	return &Config{Token: token, RunMode: mode}
+// func NewConfig(token string, mode Mode) *Config {
+func NewConfig(token string) *Config {
+	// return &Config{Token: token, RunMode: mode}
+	return &Config{Token: token}
 }
 
-func (m Mode) String() string {
-	switch m {
-	case GetWeather:
-		return "getweather"
-	// case List:
-	// 	return "list"
-	// case ListGroup:
-	// 	return "listgroup"
-	// case Delete:
-	// 	return "delete"
-	// case QRCode:
-	// 	return "qrcode"
-	default:
-		return "unknown"
-	}
+// func (m Mode) String() string {
+func String() string {
+	return "getweather"
 }
