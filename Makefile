@@ -1,8 +1,8 @@
 PACKAGE_LIST := $(shell go list ./...)
+
 VERSION := 0.2.18
 NAME := cwp
 DIST := $(NAME)-$(VERSION)
-
 
 cwp: coverage.out cmd/cwp/main.go *.go
 	go build -o $(NAME) cmd/cwp/main.go
