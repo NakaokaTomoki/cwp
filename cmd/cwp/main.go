@@ -43,8 +43,6 @@ func (e cwpError) Error() string {
 }
 
 type flags struct {
-	// deleteFlag    bool
-	// listGroupFlag bool
 	helpFlag      bool
 	versionFlag   bool
 }
@@ -52,8 +50,6 @@ type flags struct {
 type runOpts struct {
 	token  string
 	config string
-	// qrcode string
-	// group  string
 }
 
 /*
@@ -66,21 +62,6 @@ type options struct {
 
 func newOptions() *options {
 	return &options{runOpt: &runOpts{}, flagSet: &flags{}}
-}
-
-func (opts *options) mode(args []string) cwp.Mode {
-	switch {
-	// case opts.flagSet.listGroupFlag:
-	// 	return cwp.ListGroup
-	// case len(args) == 0:
-	// 	return cwp.List
-	// case opts.flagSet.deleteFlag:
-	// 	return cwp.Delete
-	// case opts.runOpt.qrcode != "":
-	// 	return cwp.QRCode
-	default:
-		return cwp.GetWeather
-	}
 }
 
 /*
@@ -130,33 +111,6 @@ func getWeatherEach(openweathermap *cwp.OpenWeatherMap, place string, config *cw
 	return nil
 }
 
-// func deleteEach(bitly *cwp.Bitly, config *cwp.Config, url string) error {
-// 	return bitly.Delete(config, url)
-// }
-
-// func listPlaces(openweathermap *cwp.OpenWeatherMap, config *cwp.Config) error {
-// func Places(openweathermap *cwp.OpenWeatherMap, config *cwp.Config) error {
-// 	places, err := openweathermap.List(config)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	for _, place := range places {
-// 		fmt.Println(place)
-// 	}
-// 	return nil
-// }
-
-// func listGroups(openweathermap *cwp.OpenWeatherMap, config *cwp.Config) error {
-// 	groups, err := openweathermap.Groups(config)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	for i, group := range groups {
-// 		fmt.Printf("GUID[%d] %s\n", i, group.Guid)
-// 	}
-// 	return nil
-// }
-
 func performImpl(args []string, executor func(place string) error) *cwpError {
 	for _, place := range args {
 		err := executor(place)
@@ -168,31 +122,13 @@ func performImpl(args []string, executor func(place string) error) *cwpError {
 }
 
 func perform(opts *options, args []string) *cwpError {
-        // fmt.Println(opts)
-        // fmt.Println(args)
-        // os.Exit(0)
-
-	// openweathermap := cwp.NewOpenWeatherMap(opts.runOpt.group)
 	openweathermap := cwp.NewOpenWeatherMap()
-	config := cwp.NewConfig(opts.runOpt.config, opts.mode(args))
+	config := cwp.NewConfig(opts.runOpt.config)
 	config.Token = opts.runOpt.token
 
-	switch config.RunMode {
-	// case cwp.List:
-	// 	err := listPlaces(openweathermap, config)
-	// 	return makeError(err, 1)
-	// case cwp.ListGroup:
-	// 	err := listGroups(openweathermap, config)
-	// 	return makeError(err, 2)
-	// case cwp.Delete:
-	// 	return performImpl(args, func(url string) error {
-	// 		return deleteEach(bitly, config, url)
-	// 	})
-	case cwp.GetWeather:
-		return performImpl(args, func(place string) error {
-			return getWeatherEach(openweathermap, place, config)
-		})
-	}
+	return performImpl(args, func(place string) error {
+		return getWeatherEach(openweathermap, place, config)
+	})
 	return nil
 }
 
