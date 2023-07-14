@@ -19,22 +19,22 @@
 
 - API から取得した情報 CLI上に表示する
 
-- 出力項目は，場所・日時・天気・気温
+- 出力項目は，場所・天気・気温
     - 出力形式は，プレーンテキスト
     - (ex)
-     - 場所： 東京, 日時： 2023-07-13 02:25:31 +0900 JST, 天気： 晴れ, 気温： 24.93度
+        - [場所] 東京都, [天気] 曇りがち, [気温] 28.90
 
 
 # Usage
 ```
-$ cwp [オプション]
+$ cwp [オプション] [引数]
 
 オプション:
-    -t, --token <TOKEN>    OpenWeatherMap API の使用に必要となるトークンを指定
-    -v, --version          cwpのバージョン情報を表示
+    -t, --token <TOKEN>    OpenWeatherMap API の使用に必要となるトークンを指定(必須)
     -h, --help             cwpコマンドのバージョン情報および利用可能なオプションを表示
+    -v, --version          cwpのバージョン情報を表示
 引数:
-    PLACE:                 天気予報を行う場所を指定(デフォルトはtokyo(東京))
+    PLACEs:                 天気予報を行う場所を指定(デフォルトはtokyo(東京))
 ```
 
 # Installation
@@ -55,6 +55,7 @@ MIT License
 
 # About
 ## License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
 ## Developers
