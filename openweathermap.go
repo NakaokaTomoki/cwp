@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	// "strings"
-        "time"
+        // "time"
 )
 
 type OpenWeatherMap struct {
@@ -30,17 +30,11 @@ func (openWeathermap *OpenWeatherMap) GetWeather(place string, config *Config) (
 func handleApiResponse(data []byte) (*OpenWeather, error) {
 	result := &OpenWeather{}
 	// fmt.Println("result:", string(data))
-	// fmt.Println()
 
 	err := json.Unmarshal(data, &result)
 	if err != nil {
 		return nil, err
 	}
-
-	// fmt.Println(result.Place)
-	// fmt.Println(result.Weather[0].WeatherDescription)
-	// fmt.Println(result.Temp["temp"])
-	// fmt.Println(time.Unix(result.DateTime, 0))
 
 	return result, err
 }

@@ -1,11 +1,11 @@
 PACKAGE_LIST := $(shell go list ./...)
-
 VERSION := 0.2.18
 NAME := cwp
 DIST := $(NAME)-$(VERSION)
 
 cwp: coverage.out cmd/cwp/main.go *.go
-	go build -o $(NAME) cmd/cwp/main.go
+	go build -o $(NAME) cmd/cwp/main.go cmd/cwp/completions.go
+	./cwp --generate-completions
 
 coverage.out: cmd/cwp/main_test.go
 	go test -covermode=count -coverprofile=coverage.out $(PACKAGE_LIST)
@@ -25,9 +25,8 @@ coverage.out: cmd/cwp/main_test.go
 # 	go test -covermode=count -coverprofile=coverage.out $(PACKAGE_LIST)
 
 docker: cwp
-#	docker build -t ghcr.io/$(REPO_NAME):$(VERSION) -t ghcr.io/$(REPO_NAME):latest .
-	docker buildx build -t ghcr.io/$(REPO_NAME):$(VERSION) \
-		-t ghcr.io/$(REPO_NAME):latest --platform=linux/arm64/v8,linux/amd64 --push .
+	docker buildx build -t ghcr.io/NakaokaTomoki/cwp:$(VERSION) \
+		-t ghcr.io/NakaokaTomoki/cwp:latest --platform=linux/arm64/v8,linux/amd64 --push .
 
 # refer from https://pod.hatenablog.com/entry/2017/06/13/150342
 define _createDist
