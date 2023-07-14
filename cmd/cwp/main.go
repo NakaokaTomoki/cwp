@@ -10,7 +10,7 @@ import (
 	"github.com/NakaokaTomoki/cwp"
 )
 
-const VERSION = "0.2.18"
+const VERSION = "0.2.20"
 
 
 func versionString(args []string) string {
