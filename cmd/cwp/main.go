@@ -12,7 +12,6 @@ import (
 
 const VERSION = "0.2.20"
 
-
 func versionString(args []string) string {
 	prog := "cwp"
 	if len(args) > 0 {
