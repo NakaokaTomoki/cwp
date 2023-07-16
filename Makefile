@@ -1,5 +1,5 @@
 PACKAGE_LIST := $(shell go list ./...)
-VERSION := 0.2.18
+VERSION := 0.2.21
 NAME := cwp
 DIST := $(NAME)-$(VERSION)
 
