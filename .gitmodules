@@ -1,3 +1,21 @@
 [submodule "docs/themes/cayman-hugo-theme"]
 	path = docs/themes/cayman-hugo-theme
 	url = https://github.com/zwbetz-gh/cayman-hugo-theme.git
+[submodule "docs/themes/hugo-simplecss"]
+	path = docs/themes/hugo-simplecss
+	url = https://github.com/splch/hugo-simplecss
+[submodule "docs/themes/cupper-hugo-theme"]
+	path = docs/themes/cupper-hugo-theme
+	url = https://github.com/zwbetz-gh/cupper-hugo-theme.git
+[submodule "docs/themes/hugo-geekdoc"]
+	path = docs/themes/hugo-geekdoc
+	url = https://github.com/thegeeklab/hugo-geekdoc.git
+[submodule "themes/hugo-whisper-theme"]
+	path = themes/hugo-whisper-theme
+	url = https://github.com/zerostaticthemes/hugo-whisper-theme.git
+[submodule "docs/themes/hugo-whisper-theme"]
+	path = docs/themes/hugo-whisper-theme
+	url = https://github.com/zerostaticthemes/hugo-whisper-theme.git
+[submodule "docs/themes/hugo_theme_adam_eve"]
+	path = docs/themes/hugo_theme_adam_eve
+	url = https://github.com/blankoworld/hugo_theme_adam_eve

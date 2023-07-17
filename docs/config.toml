@@ -1,0 +1,33 @@
+baseURL = "https://NakaokaTomoki.github.io/cwp"
+languageCode = "ja-JP"
+defaultContentLanguage = "ja"
+title = "cwp"
+theme = "hugo_theme_adam_eve"
+
+enableRobotTXT = "true"
+
+# Enable Emoji, regarding https://www.webfx.com/tools/emoji-cheat-sheet/
+enableEmoji = true
+
+# Syntax highlighting
+pygmentsCodefences = true
+pygmentsStyle = "pygments"
+
+EnableGitInfo = true
+
+[author]
+  name = "Tomoki Nakaoka"
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 6
+    ordered = false
+    startLevel = 1
+
+[params]
+    nohomebar = true
+    NoHomepagePostList = true
+
+[Languages]
+[Languages.ja.params]
+description = "OpenWeatherMapが提供しているAPI を使用して指定した場所の天気や気温を取得"
