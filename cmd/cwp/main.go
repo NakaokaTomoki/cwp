@@ -10,7 +10,7 @@ import (
 	"github.com/NakaokaTomoki/cwp"
 )
 
-const VERSION = "0.2.20"
+const VERSION = "0.2.32"
 
 func versionString(args []string) string {
 	prog := "cwp"
