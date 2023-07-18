@@ -71,7 +71,7 @@ jobs:
           make -C docs build_with_hugo
           cd docs/public
           git add .
-          git commit -a -m "update document"
+          git commit -m "update document"
 
       - name: Create Distributions
         run:
