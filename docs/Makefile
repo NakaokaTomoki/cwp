@@ -8,5 +8,9 @@ build_with_hugo: clean
 	@sed -i -e 's/.\/docs\/static\/images/.\/images/g' $(TARGET_FILE)
 	hugo --ignoreCache
 
+clean:
+	rm -rf public/*
+	rm -rf $(TARGET_DIR)
+
 start:
 	hugo server -D
