@@ -69,7 +69,9 @@ jobs:
       - name: Build Site
         run:
           make -C docs build_with_hugo
-          (cd docs/public ; git add . ; git commit -a -m "update document" || true)
+          cd docs/public
+          git add .
+          git commit -a -m "update document"
 
       - name: Create Distributions
         run:
